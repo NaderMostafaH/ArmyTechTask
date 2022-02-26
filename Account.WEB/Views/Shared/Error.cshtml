@@ -1,0 +1,23 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+    Layout = "";
+}
+
+ <link type="text/css" href="~/css/Error.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Cairo&amp;display=swap" rel="stylesheet">
+
+<div id="error">Error</div>
+<div class="error-num">500
+ 
+</div>
+<h1 id="desc">حدث خطأ أثناء معالجة طلبك.</h1>
+<p>من فضلك تواصل مع الدعم الفني لحل المشكلة في اسرع وقت</p>
+<p>العودة الي <a href="/" target="/">الصفحة الرئسية</a></p>
+@if (Model?.ShowRequestId ?? false)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model?.RequestId</code>
+    </p>
+}
+

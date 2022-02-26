@@ -1,0 +1,50 @@
+﻿@*@model IEnumerable<Account.PresentationModels.Dtos.Cashier.CashierListForUserDto>*@
+
+@{
+    ViewData["Title"] = "Cashier List";
+}
+
+<div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">
+						<!--begin::Container-->
+	<div class="container" id="kt_content_container">
+		<div class="row">
+			<div class="col-6">
+				<h2 class="text-primary">Cashier List </h2>
+			</div>
+			<div class="col-6 text-right">
+				<a class="btn btn-primary" asp-action="Upsert"><i class="fas fa-plus"></i> &nbsp; Add New Cashier</a>
+			</div>
+		</div>
+		<hr />
+	<!--begin::Table-->
+		<div class="table-responsive">
+					<table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
+							<thead>
+								<tr class="text-start text-gray-400 fw-boldest fs-7 text-uppercase">
+									@*<th class="w-20px ps-0">
+											<div class="form-check form-check-sm form-check-custom form-check-solid me-5">
+												<input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_widget_1 .form-check-input" value="1" />
+											</div>
+									</th>*@
+										<th class="min-w-200px px-0">Cashier Name</th>
+										<th class="min-w-125px">Branch</th>
+										<th class="min-w-125px">Orders Created</th>
+										<th class="text-center pe-2 min-w-70px">Action</th>
+								</tr>	
+							</thead>							<!--begin::Table body-->
+							<tbody>
+																<!--begin::Table row-->
+											
+							
+									
+						</tbody>
+															<!--end::Table body-->
+					</table>
+		</div>
+	<!--end::Table-->
+	</div>
+</div>
+@section Scripts{
+
+    <script src="~/js/cashier.js"></script>
+}

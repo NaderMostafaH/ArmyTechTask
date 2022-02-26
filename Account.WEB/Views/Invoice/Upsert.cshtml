@@ -1,0 +1,150 @@
+﻿@model Account.PresentationModels.Dtos.Invoice.Header.HeaderForUser
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Add Order";
+
+}
+<div class="content d-flex flex-column flex-column-fluid fs-6" id="kt_content">
+    <!--begin::Container-->
+    <div class="container" id="kt_content_container">
+        <div class="row">
+            <div class="col-md-8">
+                <form id="form" asp-action="Upsert">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    @if (Model.Id != 0)
+                    {
+                        //edit
+                        ViewData["Title"] = "Edit Order";
+                        <input type="hidden" id="InvoiceId" asp-for="Id" />
+                    }
+                        <div class="form-group">
+                                <label asp-for="CustomerName" class="control-label"></label>
+                                <input asp-for="CustomerName" maxlength="50" required class ="form-control"/>
+                                <span asp-validation-for=CustomerName></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="BranchId" class="control-label"></label>
+                            <select asp-for="BranchId" class ="form-control" onchange="onBranchChange()" id="Branch" asp-items="@ViewBag.BranchList">
+                                <option value="">- اختر الفرع -</option>
+                            </select>
+                            
+                            <span asp-validation-for=BranchId></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CashierId" class="control-label"></label>
+                            <select asp-for="CashierId" asp-items="@ViewBag.CashierList"  id="Cashier" class="form-control" >
+                                <option value="">- اخترالكاشير -</option>
+                            </select>
+                            
+                            <span asp-validation-for=CashierId></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Invoicedate" class="control-label"></label>
+                            <input asp-for="Invoicedate"  required class ="form-control"/>
+                            <span asp-validation-for=Invoicedate></span>
+                        </div>
+                        <hr />
+                                 
+                                <div class="table-responsive">
+                                   <a id="add" onclick="AddItem(@Model.Id)" class="add btn btn-primary">+</a>
+
+                                    <table class="table align-middle table-row-bordered table-row-dashed gy-5" id="kt_table_widget_1">
+                                        <thead>
+                                            <tr>
+                                            <th>Item Name</th>
+                                            <th>Item Count</th>
+                                            <th>Item Price</th>
+                                            <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                        
+
+                        <div class="form-group">
+                            @if(Model.Id > 0)
+                            {
+                               <partial name="_EditAndBackToListButton" model="Model.Id"/>
+                            }
+                            else
+                            {
+                               <partial name="_CreateAndBackToListButton"/>
+                            }
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+  <!-- Sign Up Modal -->
+        <div id="modal-Item"
+             class="modal fade"
+             tabindex="-1"
+             role="dialog"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="ModalLabel">Update Invoice Item</h5>
+                        <button type="button" class="btn close" data-bs-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                     </div>
+                     <form id="itemUpdate" method="post">
+                    <div class="modal-body">
+                        <div class="px-5">
+                            
+                                    <input name="invoiceHeaderId" id="invoiceHeaderId"  type="hidden">
+                                    <input name="id" id="id" type="hidden">
+
+                                      <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Item Name</label>
+                                                    <input name="itemName" type="text" class="form-control" maxlength="200" Required id="itemName" placeholder="Item Name">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Item Count</label>
+                                                    <input name="itemCount" type="number" min="1" class="form-control" Required id="itemCount" placeholder="Item Count">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label for="exampleInputEmail1">Item price</label>
+                                                    <input name="itemPrice" type="text" min="1" class="form-control" Required id="itemPrice" placeholder="Item Price">
+
+                                                </div>
+                                            </div>
+                                          
+
+                                            </div>
+                                                                                   
+                                           
+
+                             
+
+                        </div>
+                    </div> <!-- // END .modal-body -->
+                    <div class="modal-footer">
+                        <button  id="certSave" onclick="UpdatePost()" class="btn btn-primary">Update</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                     </div>
+                     </form>
+                </div> <!-- // END .modal-content -->
+            </div> <!-- // END .modal-dialog -->
+        </div> <!-- // END .modal -->
+      </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/invoiceUpsert.js"></script>
+}
